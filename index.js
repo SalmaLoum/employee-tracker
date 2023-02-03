@@ -1,4 +1,10 @@
-const connection = require('./db/connection')
+const connection = require('./db/connection');
+const mysql = require('mysql2');
+const { prompt } = require('inquirer');
+const consoleTable = require('console.table');
+const queries = require('./db/Queries');
+//const { prototype } = require('events');
+
 
 class Queries {
   constructor(connection) {

@@ -1,4 +1,4 @@
-const connection = require('./connection')
+const connection = require('./db/connection')
 
 class Queries {
   constructor(connection) {
@@ -24,8 +24,6 @@ class Queries {
         'SELECT employee,id, employee.first_name, employee.last_name FROM employee',
       )
   }
-
-
 
   findAllEmployees() {
     return this.connection.promise().query(`
@@ -74,7 +72,6 @@ class Queries {
       .promise()
       .query('DELETE FROM employee WHERE id = ?', employeeId)
   }
-
 
   updateEmployeeRole(employeeId, roleId) {
     return this.connection
