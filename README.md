@@ -1,13 +1,14 @@
-# employee-tracker
+# tracker-cracker
 
 ## Badge
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-informational.svg)](https://opensource.org/licenses/MIT)
 
-## Description 
+## Description
+
 This **content management systems (CMS)** is built through a command-line application to manage a company's employee database, using `Node.js`, `Inquirer`, and `MySQL`.
 
-----
+---
 
 ## Table of Contents
 
@@ -17,12 +18,12 @@ This **content management systems (CMS)** is built through a command-line applic
 - [Credits](#credits)
 - [License](#license)
 - [Questions](#questions)
-  
+
 ## Installation
 
 Run node index.js in terminal.
 
-----
+---
 
 ## Instructions
 
@@ -36,22 +37,23 @@ Follow the instructions below to check your database through My SQL Workbench
 
 - ![MySql](./assets/)
 
-  
 ## Usage
 
 - AS A business owner
 - I WANT to be able to view and manage the departments, roles, and employees in my company
 - SO THAT I can organize and plan my business
 
----- 
-  
+---
+
 ## Credits
+
 - [My SQL Workbench](https://www.mysql.com/products/workbench/)
 - [UCLA Extension Bootcamp](https://www.uclaextension.edu/?gclid=Cj0KCQiAgribBhDkARIsAASA5btdbwAz8x25r3b1deoRNIGxfkPFL11rAQMuCgQ7HYiqBH8CLr9CgLoaAktlEALw_wcB&gclsrc=aw.ds)
 
-----
+---
 
 ## License
+
 MIT License
 
 Copyright (c) 2023 Sara Angelo
@@ -74,9 +76,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
- ----
+---
 
 ## Questions
 
-If you have any questions about the repo you can open an issue on this repo, or reachout to me via 
+If you have any questions about the repo you can open an issue on this repo, or reachout to me via
 my [Github](https://www.github.com/salmaLoum)
