@@ -1,50 +1,104 @@
-const mysql = require('mysql2')
-const { prompt } = require('inquirer')
-require('console.table')
-//const { prototype } = require('events');
-const queries = require('./db/Queries')
+const connection = require('./db/connection')
 
-init
-function init() {
-  loadInitialQuestions()
+class Queries {
+  constructor(connection) {
+    this.connection = connection
+  }
+
+  viewDepartments() {
+    return this.connection
+      .promise()
+      .query('SELECT department.id, department.name FROM department')
+  }
+
+  findAllEmployees() {
+    return this.connection.promise().query(`
+    SELECT 
+    employee.id, 
+    employee.first_name, 
+    employee.last_name, 
+    
+    role.title,
+    departments.name AS department, 
+    roles.salary, 
+    manager.first_name AS manager
+    FROM employee LEFT JOIN roles on employee.role_id = roles.id
+    LEFT JOIN department on roles.department_id = departments.id
+    LEFT JOIN employee manager on manger.id = employee.manager_id;
+    `
+    )
+  }
+
+  findAllRoles() {
+    return this.connection.promise().query(
+      `SELECT roles.id, roles.title, 
+      department.name AS department, 
+      roles.salary 
+      FROM roles 
+      LEFT JOIN department on roles.department_id = department.id;`
+    );
+  }
+  
+  findAllPossibleManagers(employeeId) {
+    return this.connection.promise().query(
+      "SELECT id, first_name, last_name FROM employee WHERE id != ?",
+      employeeId
+    );
+  }
+
+  createEmployee(employee) {
+    return this.connection.promise().query("INSERT INTO employee SET ?", employee);
+  }
+
+  
+  removeEmployee(employeeId) {
+    return this.connection.promise().query(
+      "DELETE FROM employee WHERE id = ?",
+      employeeId
+    );
+  }
+
+  updateEmployeeRole(employeeId, roleId) {
+    return this.connection.promise().query(
+      "UPDATE employee SET role_id = ? WHERE id = ?",
+      [roleId, employeeId]
+    );
+  }
+
+  findAllRoles() {
+    return this.connection.promise().query(
+      "SELECT roles.id, roles.title, department.name AS department, roles.salary FROM roles LEFT JOIN department on roles.department_id = department.id;"
+    );
+  }
+
+  createRole(role) {
+    return this.connection.promise().query("INSERT INTO roles SET ?", role);
+  }
+
+  removeRole(roleId) {
+    return this.connection.promise().query("DELETE FROM roles WHERE id = ?", roleId);
+  }
+
+ 
+  findAllDepartments() {
+    return this.connection.promise().query(
+      "SELECT departments.id, departments.name FROM department;"
+    );
+  }
+
+  createDepartment(department) {
+    return this.connection.promise().query("INSERT INTO department SET ?", department);
+  }
+
+  
+  removeDepartment(departmentId) {
+    return this.connection.promise().query(
+      "DELETE FROM department WHERE id = ?",
+      departmentId
+    );
+  }
+
+
 }
 
-function loadInitialQuestions() {
-  prompt([
-    {
-      type: 'list',
-      name: 'action',
-      massage: 'What would you like to do?',
-      choices: [
-        {
-          name: 'View all departments',
-          value: 'VIEW_DEPARTMENTS',
-        },
-        {
-          name: 'add a department',
-          value: 'ADD_DEPARTMENT',
-        },
-      ],
-    },
-  ]).then((choice) => {
-    let response = choice.action
-
-    switch (response) {
-      case 'VIEW_DEPARTMENTS':
-        viewDepartments()
-        break
-      case 'ADD_DEPARTMENT':
-        addDepartment()
-        break
-
-      default:
-        break
-    }
-  })
-}
-
-function viewDepartments() {
-  queries.viewDepartments().then(([rows, fields]) => {
-    console.table(rows)
-  })
-}
+module.exports = new Queries(connection)

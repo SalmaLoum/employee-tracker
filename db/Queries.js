@@ -11,6 +11,22 @@ class Queries {
       .query('SELECT department.id, department.name FROM department')
   }
 
+  viewRoles() {
+    return this.connection
+      .promise()
+      .query('SELECT roles.id, roles.name FROM roles')
+  }
+
+  viewEmployees() {
+    return this.connection
+      .promise()
+      .query(
+        'SELECT employee,id, employee.first_name, employee.last_name FROM employee',
+      )
+  }
+
+
+
   findAllEmployees() {
     return this.connection.promise().query(`
     SELECT 
@@ -59,6 +75,7 @@ class Queries {
       .query('DELETE FROM employee WHERE id = ?', employeeId)
   }
 
+
   updateEmployeeRole(employeeId, roleId) {
     return this.connection
       .promise()
@@ -66,6 +83,42 @@ class Queries {
         roleId,
         employeeId,
       ])
+  }
+
+  findAllRoles() {
+    return this.connection
+      .promise()
+      .query(
+        'SELECT roles.id, roles.title, department.name AS department, roles.salary FROM roles LEFT JOIN department on roles.department_id = department.id;',
+      )
+  }
+
+  createRole(role) {
+    return this.connection.promise().query('INSERT INTO roles SET ?', role)
+  }
+
+  removeRole(roleId) {
+    return this.connection
+      .promise()
+      .query('DELETE FROM roles WHERE id = ?', roleId)
+  }
+
+  findAllDepartments() {
+    return this.connection
+      .promise()
+      .query('SELECT department.id, department.name FROM department;')
+  }
+
+  createDepartment(department) {
+    return this.connection
+      .promise()
+      .query('INSERT INTO department SET ?', department)
+  }
+
+  removeDepartment(departmentId) {
+    return this.connection
+      .promise()
+      .query('DELETE FROM department WHERE id = ?', departmentId)
   }
 }
 
